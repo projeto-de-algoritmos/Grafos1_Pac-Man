@@ -93,6 +93,9 @@
         <span>Arraste o Pac-Man para algum ponto do mapa</span>
         <img *ngIf="currentIndex==null"
          draggable="true" class="w-5 h-5" src="../../assets/pacman.png" alt="pacman">
+         <button class="flex max-w-min bg-yellow-500 text-black rounded-2xl py-1 px-2 mt-4 border-2 border-black"
+                (click)="restaurar()"
+         >Restaurar</button>
     </div>
 </div>
 

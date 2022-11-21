@@ -48,4 +48,9 @@ export class MapComponent implements OnInit {
     return this.map[parseInt(i)];
   }
 
+  restaurar(){
+    if(this.currentIndex!=null) this.map[this.currentIndex] = false;
+    this.currentIndex = null;
+  }
+
 }
