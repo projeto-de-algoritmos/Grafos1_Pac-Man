@@ -93,9 +93,24 @@
         <span>Arraste o Pac-Man para algum ponto do mapa</span>
         <img *ngIf="currentIndex==null"
          draggable="true" class="w-5 h-5" src="../../assets/pacman.png" alt="pacman">
-         <button class="flex max-w-min bg-yellow-500 text-black rounded-2xl py-1 px-2 mt-4 border-2 border-black"
-                (click)="restaurar()"
-         >Restaurar</button>
+
+         <mat-form-field appearance="fill" class="mt-4">
+           <mat-label>Selecione um tipo de busca</mat-label>
+           <mat-select [(ngModel)]="selectedValue" name="busca">
+             <mat-option *ngFor="let busca of buscas" [value]="busca">
+               {{busca}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+
+        <div class="flex flex-row max-w-min gap-x-2">
+            <button class="flex max-w-min bg-red-500 text-white rounded-2xl py-1 px-2 border-2 border-white"
+                   (click)="restaurar()"
+            >Restaurar</button>
+            <button class="flex flex-row flex-nowrap bg-blue-600 text-white rounded-2xl py-1 px-2 border-2 border-white"
+                    (click)="buscar()"
+            >Buscar</button>
+        </div>
     </div>
 </div>
 
