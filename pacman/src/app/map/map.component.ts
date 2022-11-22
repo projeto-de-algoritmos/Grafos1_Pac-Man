@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LinkedList } from '../lista';
 
+interface Arestas {
+  de: number;
+  para: number;
+}
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -8,7 +13,13 @@ import { LinkedList } from '../lista';
 })
 export class MapComponent implements OnInit {
 
-  listas: any[] = [];
+  listas: LinkedList<number>[] = [];
+
+  visitados: boolean[] = [];
+  s: number[] = [];
+  arestas: Arestas[] = [];
+
+  out = [30,31,38,39,50,51,58,59]
 
   todos_os_lados = [12, 17, 34, 35, 42, 47, 62, 67]
   direita_cima_esquerda = [95, 94, 81, 88, 74, 75, 63, 66, 15, 14]
@@ -24,6 +35,7 @@ export class MapComponent implements OnInit {
 
   map: boolean[] = [];
   currentIndex: any = null;
+  ghostPosition = 44;
 
   selectedValue: string = '';
   buscas: string[] = ['Busca em Largura', 'Busca em Profundidade'];
@@ -31,12 +43,8 @@ export class MapComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    for(let i=0; i<100; i++){
-      this.map.push(false)
-    }
-    this.selectedValue = this.buscas[0];
-    
     this.listInit();
+    this.selectedValue = this.buscas[0];
   }
 
   createRange(number: number){
@@ -55,8 +63,6 @@ export class MapComponent implements OnInit {
       let index = parseInt(i);
 
       this.map[index] = true;
-      console.log(index);
-      
       if(this.currentIndex!=null) this.map[this.currentIndex] = false;
       this.currentIndex = index;
   }
@@ -71,17 +77,85 @@ export class MapComponent implements OnInit {
     return this.map[parseInt(i)];
   }
 
+  ghostIsHere(i: any): boolean {
+    return parseInt(i) == this.ghostPosition;
+  }
+
   restaurar(){
     if(this.currentIndex!=null) this.map[this.currentIndex] = false;
     this.currentIndex = null;
+    this.ghostPosition = 44;
   }
 
   buscar(){
-    console.log("buscar em "+this.selectedValue);
+    console.log("buscando em "+this.selectedValue);
+
+    this.bfs();
+
+    console.log(this.getResposta());
+    this.ghostWalk(this.getResposta());
+  }
+
+  getResposta(): number[]{
+    let resposta = []
+    resposta.push(this.currentIndex);
+    let de = this.arestas.find(a=>a.para==this.currentIndex)?.de;
+    resposta.push(de);
+    while(de != this.ghostPosition){
+      de = this.arestas.find(a=>a.para==de)?.de;
+      resposta.push(de);
+    }
+    resposta = resposta.reverse();
+    return resposta;
+  }
+
+  bfs(){
+    let proximo = this.ghostPosition;
+    this.s.push(proximo);
+    this.visitados[proximo] = true;
+    while(proximo != -1){
+      while(this.s.length>0){
+
+        let u = this.s.shift();
+        let nodeAux = this.listas[u!].start;
+        
+        let end = false;
+        while(!end) {
+            if(this.visitados[nodeAux.value] == false){
+              this.marcarAresta(u!, nodeAux.value);
+              this.visitados[nodeAux.value] = true;
+              this.s.push(nodeAux.value);
+            }
+            if (nodeAux.prox !== null) {
+              nodeAux = nodeAux.prox;
+            } else {
+              end = true;
+            }
+        }
+      }
+
+      proximo = this.visitados.indexOf(false);
+      if(proximo!=-1){
+        this.s.push(proximo)
+        this.visitados[proximo] = true
+      }
+    }
+  }
+
+  marcarAresta(de: number, para: number){
+    this.arestas.push({
+      de: de,
+      para: para
+    })
   }
 
   listInit(){
     for(let i=0; i<100; i++){
+      if(!this.out.includes(i)){
+      
+      this.map.push(false);
+      this.visitados.push(false);
+
       this.listas[i] = new LinkedList<number>();
       if(this.todos_os_lados.includes(i)){
         this.listas[i].push(i+1);
@@ -133,7 +207,19 @@ export class MapComponent implements OnInit {
         this.listas[i].push(i-1);
         this.listas[i].push(i+10);
       }
+      }
+      else {
+        this.visitados.push(true);
+      }
     }
+  }
+
+  ghostWalk(resposta: number[]){
+    resposta.forEach((casa, i)=>{
+      setTimeout(()=>{
+        this.ghostPosition = casa;
+      }, i*500);
+    })
   }
   
 }

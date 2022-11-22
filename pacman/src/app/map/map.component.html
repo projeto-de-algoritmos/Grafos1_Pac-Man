@@ -5,41 +5,47 @@
                             (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' : 
                             'text-white w-5 h-5'"
             >
-                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'0')"
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'0') && !ghostIsHere(i+'0')"
                     (drop)="onDrop($event, i+'0')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
                 <span *ngIf="!isHere(i+'0'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'0'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]="  (i==1) ? 'text-white mt-6 w-5 h-5' : 
                             (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' : 
                             'text-white w-5 h-5'"
             >
-                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'1')"
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'1')  && !ghostIsHere(i+'1')"
                     (drop)="onDrop($event, i+'1')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
                 <span *ngIf="!isHere(i+'1'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'1'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]=" (i==1) ? 'text-white mt-6 w-5 h-5' :
                                 (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' :  
                                 'text-white w-5 h-5'"
             >
                 <mat-icon *ngIf="!isHere(i+'2'); else pacman"
+                    [class]="ghostIsHere(i+'2') ? 'hidden' : ''"
                     (drop)="onDrop($event, i+'2')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'2'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]=" (i==1) ? 'text-white mt-6 w-5 h-5' :
                                 (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' :  
                                 'text-white w-5 h-5'"
             >
                 <mat-icon *ngIf="!isHere(i+'3'); else pacman"
+                    [class]="ghostIsHere(i+'3') ? 'hidden' : ''"
                     (drop)="onDrop($event, i+'3')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'3'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]="  (i==1) ? 'text-white mt-6 w-5 h-5' :
                             (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' :  
                             'text-white w-5 h-5'"
             >
-                <mat-icon *ngIf="i!=4; else ghost"
+                <mat-icon *ngIf="!ghostIsHere(i+'4'); else ghost"
                             (drop)="onDrop($event, i+'4')" (dragover)="onDragOver($event)"
                             [class]="(!isHere(i+'4')) ? '' : 'hidden'"
                 >crop_square</mat-icon>
@@ -50,42 +56,50 @@
                                 'text-white ml-4 w-5 h-5'"
             >
                 <mat-icon *ngIf="!isHere(i+'5'); else pacman"
+                    [class]="ghostIsHere(i+'5') ? 'hidden' : ''"
                     (drop)="onDrop($event, i+'5')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'5'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' :
                                 (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' :  
                                 'text-white ml-4 w-5 h-5'"
             >
                 <mat-icon *ngIf="!isHere(i+'6'); else pacman"
+                    [class]="ghostIsHere(i+'6') ? 'hidden' : ''"
                     (drop)="onDrop($event, i+'6')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'6'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' :
                                 (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' :  
                                 'text-white ml-4 w-5 h-5'"
             >
                 <mat-icon *ngIf="!isHere(i+'7'); else pacman"
+                    [class]="ghostIsHere(i+'7') ? 'hidden' : ''"
                     (drop)="onDrop($event, i+'7')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'7'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' : 
                                 (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' : 
                                 'text-white ml-4 w-5 h-5'"
             >
-                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'8')"
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'8') && !ghostIsHere(i+'8')"
                     (drop)="onDrop($event, i+'8')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
                 <span *ngIf="!isHere(i+'8'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'8'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
             <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' : 
                                 (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' : 
                                 'text-white ml-4 w-5 h-5'"
             >
-                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'9')"
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'9') && !ghostIsHere(i+'9')"
                     (drop)="onDrop($event, i+'9')" (dragover)="onDragOver($event)"
                 >crop_square</mat-icon>
                 <span *ngIf="!isHere(i+'9'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'9'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
             </div>
     </div>
 </div>
@@ -107,7 +121,9 @@
             <button class="flex max-w-min bg-red-500 text-white rounded-2xl py-1 px-2 border-2 border-white"
                    (click)="restaurar()"
             >Restaurar</button>
-            <button class="flex flex-row flex-nowrap bg-blue-600 text-white rounded-2xl py-1 px-2 border-2 border-white"
+            <button
+            [disabled]="ghostPosition!=44"
+             class="flex flex-row flex-nowrap bg-blue-600 text-white rounded-2xl py-1 px-2 border-2 border-white"
                     (click)="buscar()"
             >Buscar</button>
         </div>
