@@ -85,14 +85,21 @@ export class MapComponent implements OnInit {
     if(this.currentIndex!=null) this.map[this.currentIndex] = false;
     this.currentIndex = null;
     this.ghostPosition = 44;
+    this.arestas = [];
+    this.visitados = [];
+    this.listInit();
+    
   }
 
   buscar(){
-    console.log("buscando em "+this.selectedValue);
 
-    this.bfs();
-
-    console.log(this.getResposta());
+    if(this.selectedValue == 'Busca em Largura'){
+      this.bfs();
+    }
+    else {
+      this.dfs();
+    }
+    
     this.ghostWalk(this.getResposta());
   }
 
@@ -140,6 +147,32 @@ export class MapComponent implements OnInit {
         this.visitados[proximo] = true
       }
     }
+  }
+
+  dfs(){
+    let v = this.ghostPosition;
+        if(this.visitados[v]==false){
+          this.dfs_visit(v);
+        }
+  }
+
+  dfs_visit(v: number){
+    this.visitados[v] = true;
+
+    let nodeAux = this.listas[v].start;
+        
+        let end = false;
+        while(!end) {
+            if(this.visitados[nodeAux.value]==false){
+              this.marcarAresta(v, nodeAux.value);
+              this.dfs_visit(nodeAux.value);
+            }
+            if (nodeAux.prox !== null) {
+              nodeAux = nodeAux.prox;
+            } else {
+              end = true;
+            }
+        }
   }
 
   marcarAresta(de: number, para: number){
