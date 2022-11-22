@@ -1,0 +1,139 @@
+<div class="flex flex-row m-4">
+<div class="flex flex-col border-blue-500 bg-layout-theme bg-cover h-160 w-144">
+    <div *ngFor="let item of createRange(10); let i=index" class="grid grid-cols-10 my-5 ml-5">
+            <div [class]="  (i==1) ? 'text-white mt-6 w-5 h-5' : 
+                            (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' : 
+                            'text-white w-5 h-5'"
+            >
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'0') && !ghostIsHere(i+'0')"
+                    (drop)="onDrop($event, i+'0')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!isHere(i+'0'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'0'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]="  (i==1) ? 'text-white mt-6 w-5 h-5' : 
+                            (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' : 
+                            'text-white w-5 h-5'"
+            >
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'1')  && !ghostIsHere(i+'1')"
+                    (drop)="onDrop($event, i+'1')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!isHere(i+'1'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'1'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]=" (i==1) ? 'text-white mt-6 w-5 h-5' :
+                                (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' :  
+                                'text-white w-5 h-5'"
+            >
+                <mat-icon *ngIf="!isHere(i+'2'); else pacman"
+                    [class]="ghostIsHere(i+'2') ? 'hidden' : ''"
+                    (drop)="onDrop($event, i+'2')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'2'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]=" (i==1) ? 'text-white mt-6 w-5 h-5' :
+                                (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' :  
+                                'text-white w-5 h-5'"
+            >
+                <mat-icon *ngIf="!isHere(i+'3'); else pacman"
+                    [class]="ghostIsHere(i+'3') ? 'hidden' : ''"
+                    (drop)="onDrop($event, i+'3')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'3'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]="  (i==1) ? 'text-white mt-6 w-5 h-5' :
+                            (i==6 || i==7 || i==8) ? 'text-white mt-1 w-5 h-5' :  
+                            'text-white w-5 h-5'"
+            >
+                <mat-icon *ngIf="!ghostIsHere(i+'4'); else ghost"
+                            (drop)="onDrop($event, i+'4')" (dragover)="onDragOver($event)"
+                            [class]="(!isHere(i+'4')) ? '' : 'hidden'"
+                >crop_square</mat-icon>
+                <span *ngIf="!isHere(i+'4'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' :
+                                (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' :  
+                                'text-white ml-4 w-5 h-5'"
+            >
+                <mat-icon *ngIf="!isHere(i+'5'); else pacman"
+                    [class]="ghostIsHere(i+'5') ? 'hidden' : ''"
+                    (drop)="onDrop($event, i+'5')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'5'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' :
+                                (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' :  
+                                'text-white ml-4 w-5 h-5'"
+            >
+                <mat-icon *ngIf="!isHere(i+'6'); else pacman"
+                    [class]="ghostIsHere(i+'6') ? 'hidden' : ''"
+                    (drop)="onDrop($event, i+'6')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'6'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' :
+                                (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' :  
+                                'text-white ml-4 w-5 h-5'"
+            >
+                <mat-icon *ngIf="!isHere(i+'7'); else pacman"
+                    [class]="ghostIsHere(i+'7') ? 'hidden' : ''"
+                    (drop)="onDrop($event, i+'7')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!ghostIsHere(i+'7'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' : 
+                                (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' : 
+                                'text-white ml-4 w-5 h-5'"
+            >
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'8') && !ghostIsHere(i+'8')"
+                    (drop)="onDrop($event, i+'8')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!isHere(i+'8'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'8'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+            <div [class]=" (i==1) ? 'text-white ml-4 mt-6 w-5 h-5' : 
+                                (i==6 || i==7 || i==8) ? 'text-white ml-4 mt-1 w-5 h-5' : 
+                                'text-white ml-4 w-5 h-5'"
+            >
+                <mat-icon *ngIf="(i!=3 && i!=5) && !isHere(i+'9') && !ghostIsHere(i+'9')"
+                    (drop)="onDrop($event, i+'9')" (dragover)="onDragOver($event)"
+                >crop_square</mat-icon>
+                <span *ngIf="!isHere(i+'9'); else pacman" class="w-8 h-8 ml-4 hidden"></span>
+                <span *ngIf="!ghostIsHere(i+'9'); else ghost" class="w-8 h-8 ml-4 hidden"></span>
+            </div>
+    </div>
+</div>
+    <div class="ml-4 flex flex-col">
+        <span>Arraste o Pac-Man para algum ponto do mapa</span>
+        <img *ngIf="currentIndex==null"
+         draggable="true" class="w-5 h-5" src="../../assets/pacman.png" alt="pacman">
+
+         <mat-form-field appearance="fill" class="mt-4">
+           <mat-label>Selecione um tipo de busca</mat-label>
+           <mat-select [(ngModel)]="selectedValue" name="busca">
+             <mat-option *ngFor="let busca of buscas" [value]="busca">
+               {{busca}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+
+        <div class="flex flex-row max-w-min gap-x-2">
+            <button class="flex max-w-min bg-red-500 text-white rounded-2xl py-1 px-2 border-2 border-white"
+                   (click)="restaurar()"
+            >Restaurar</button>
+            <button
+            [disabled]="ghostPosition!=44"
+             class="flex flex-row flex-nowrap bg-blue-600 text-white rounded-2xl py-1 px-2 border-2 border-white"
+                    (click)="buscar()"
+            >Buscar</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #ghost class="w-8 h-8 ml-4">
+    <img src="../../assets/ghost.jpeg" alt="ghost">
+</ng-template>
+
+<ng-template #pacman class="w-8 h-8 ml-4">
+    <img src="../../assets/pacman.png" alt="ghost">
+</ng-template>
