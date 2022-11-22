@@ -251,7 +251,7 @@ export class MapComponent implements OnInit {
     resposta.forEach((casa, i)=>{
       setTimeout(()=>{
         this.ghostPosition = casa;
-      }, i*500);
+      }, i*300);
     })
   }
   
